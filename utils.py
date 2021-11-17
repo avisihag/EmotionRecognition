@@ -6,8 +6,6 @@ from collections import OrderedDict
 from imutils.face_utils import FaceAligner
 
 
-face_detector = dlib.get_frontal_face_detector()
-#shape_predictor = dlib.shape_predictor("face_detectors/shape_predictor_68_face_landmarks.dat")
 
 key_landmarks = {
     "kl_1": list(range(17,28)),
