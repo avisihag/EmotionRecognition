@@ -8,10 +8,6 @@ from sklearn.preprocessing import OneHotEncoder
 import utils
 
 
-#face_detector = dlib.get_frontal_face_detector()
-#shape_predictor = dlib.shape_predictor("face_detectors/shape_predictor_68_face_landmarks.dat")
-
-
 class DataBuilder():
 
     def __init__(self, path, classes, img_to_exclude=[]):
