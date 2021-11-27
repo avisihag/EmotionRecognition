@@ -82,6 +82,121 @@ class BaseModel():
     def __repr__(self):
         return f"model: {self.__class__.__name__},  trained: {self.trained}"
 
+    
+def build_dcnn(input_shape, show_arch=True):
+    net = Sequential(name='DCNN')
+
+    net.add(
+        Conv2D(
+            filters=64,
+            kernel_size=(3,3),
+            input_shape=input_shape,
+            activation='elu',
+            padding='same',
+            kernel_initializer='he_normal',
+            name='conv2d_1'
+        )
+    )
+    net.add(BatchNormalization(name='batchnorm_1'))
+    net.add(
+        Conv2D(
+            filters=64,
+            kernel_size=(3,3),
+            activation='elu',
+            padding='same',
+            kernel_initializer='he_normal',
+            name='conv2d_2'
+        )
+    )
+    net.add(BatchNormalization(name='batchnorm_2'))
+    
+    net.add(MaxPooling2D(pool_size=(2,2), name='maxpool2d_1'))
+    net.add(Dropout(0.45, name='dropout_1'))
+
+    net.add(
+        Conv2D(
+            filters=128,
+            kernel_size=(3,3),
+            activation='elu',
+            padding='same',
+            kernel_initializer='he_normal',
+            name='conv2d_3'
+        )
+    )
+    net.add(BatchNormalization(name='batchnorm_3'))
+    net.add(
+        Conv2D(
+            filters=128,
+            kernel_size=(3,3),
+            activation='elu',
+            padding='same',
+            kernel_initializer='he_normal',
+            name='conv2d_4'
+        )
+    )
+    net.add(BatchNormalization(name='batchnorm_4'))
+    
+    net.add(MaxPooling2D(pool_size=(2,2), name='maxpool2d_2'))
+    net.add(Dropout(0.45, name='dropout_2'))
+
+    net.add(
+        Conv2D(
+            filters=256,
+            kernel_size=(3,3),
+            activation='elu',
+            padding='same',
+            kernel_initializer='he_normal',
+            name='conv2d_5'
+        )
+    )
+    net.add(BatchNormalization(name='batchnorm_5'))
+    net.add(
+        Conv2D(
+            filters=256,
+            kernel_size=(3,3),
+            activation='elu',
+            padding='same',
+            kernel_initializer='he_normal',
+            name='conv2d_6'
+        )
+    )
+    net.add(BatchNormalization(name='batchnorm_6'))
+    
+    net.add(MaxPooling2D(pool_size=(2,2), name='maxpool2d_3'))
+    net.add(Dropout(0.4, name='dropout_3'))
+
+    net.add(
+        Conv2D(
+            filters=512,
+            kernel_size=(3,3),
+            activation='elu',
+            padding='same',
+            kernel_initializer='he_normal',
+            name='conv2d_7'
+        )
+    )
+    net.add(BatchNormalization(name='batchnorm_7'))
+    net.add(
+        Conv2D(
+            filters=512,
+            kernel_size=(3,3),
+            activation='elu',
+            padding='same',
+            kernel_initializer='he_normal',
+            name='conv2d_8'
+        )
+    )
+    net.add(BatchNormalization(name='batchnorm_8'))
+    
+    net.add(Dropout(0.4, name='dropout_4'))
+    
+    net.add(GlobalMaxPool2D(name="globalmax2d"))
+    
+    if show_arch:
+        net.summary()
+    
+    return net
+
 
 def cnn_for_raw_img(in_shape, out_shape):
     model_in = Input(shape=in_shape, name="input_CNN")
